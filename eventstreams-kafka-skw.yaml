@@ -1,0 +1,261 @@
+﻿apiVersion: eventstreams.ibm.com/v1beta2
+kind: EventStreams
+metadata:
+  annotations:
+    eventstreams.ibm.com/apicurio-registry-version: '>=2.4'
+  creationTimestamp: '2023-05-31T07:57:10Z'
+  generation: 1
+  managedFields:
+    - apiVersion: eventstreams.ibm.com/v1beta2
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:eventstreams.ibm.com/apicurio-registry-version': {}
+        'f:spec':
+          'f:version': {}
+          'f:license':
+            .: {}
+            'f:accept': {}
+            'f:use': {}
+          .: {}
+          'f:adminUI': {}
+          'f:security':
+            .: {}
+            'f:internalTls': {}
+          'f:requestIbmServices':
+            .: {}
+            'f:iam': {}
+            'f:monitoring': {}
+          'f:strimziOverrides':
+            .: {}
+            'f:kafka':
+              .: {}
+              'f:config':
+                .: {}
+                'f:inter.broker.protocol.version': {}
+                'f:offsets.topic.replication.factor': {}
+                'f:transaction.state.log.min.isr': {}
+                'f:transaction.state.log.replication.factor': {}
+              'f:listeners': {}
+              'f:metricsConfig':
+                .: {}
+                'f:type': {}
+                'f:valueFrom':
+                  .: {}
+                  'f:configMapKeyRef':
+                    .: {}
+                    'f:key': {}
+                    'f:name': {}
+              'f:replicas': {}
+              'f:storage':
+                .: {}
+                'f:class': {}
+                'f:size': {}
+                'f:type': {}
+            'f:zookeeper':
+              .: {}
+              'f:metricsConfig':
+                .: {}
+                'f:type': {}
+                'f:valueFrom':
+                  .: {}
+                  'f:configMapKeyRef':
+                    .: {}
+                    'f:key': {}
+                    'f:name': {}
+              'f:replicas': {}
+              'f:storage':
+                .: {}
+                'f:class': {}
+                'f:size': {}
+                'f:type': {}
+          'f:collector': {}
+          'f:restProducer': {}
+          'f:apicurioRegistry': {}
+          'f:adminApi': {}
+      manager: Mozilla
+      operation: Update
+      time: '2023-05-31T07:57:10Z'
+    - apiVersion: eventstreams.ibm.com/v1beta2
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:status':
+          'f:adminUiUrl': {}
+          'f:phase': {}
+          'f:endpoints': {}
+          'f:conditions': {}
+          'f:kafkaListeners': {}
+          .: {}
+          'f:versions':
+            .: {}
+            'f:available':
+              .: {}
+              'f:channels': {}
+              'f:versions': {}
+            'f:reconciled': {}
+          'f:observedGeneration': {}
+          'f:customImages': {}
+          'f:routes':
+            .: {}
+            'f:ac-reg-external': {}
+            'f:admapi-external': {}
+            'f:recapi-external': {}
+            'f:ui': {}
+      manager: fabric8-kubernetes-client
+      operation: Update
+      subresource: status
+      time: '2023-05-31T07:59:28Z'
+  name: kafka-skw1
+  namespace: ocpui
+  resourceVersion: '22947458'
+  uid: d16f485f-f098-4dc5-a8a2-52bf9c7e865e
+spec:
+  security:
+    internalTls: NONE
+  license:
+    accept: true
+    use: CloudPakForIntegrationNonProduction
+  requestIbmServices:
+    iam: false
+    monitoring: false
+  strimziOverrides:
+    kafka:
+      config:
+        inter.broker.protocol.version: '3.4'
+        offsets.topic.replication.factor: 1
+        transaction.state.log.min.isr: 1
+        transaction.state.log.replication.factor: 1
+      listeners:
+        - name: plain
+          port: 9092
+          tls: false
+          type: internal
+      metricsConfig:
+        type: jmxPrometheusExporter
+        valueFrom:
+          configMapKeyRef:
+            key: kafka-metrics-config.yaml
+            name: light-insecure-metrics-config
+      replicas: 3
+      storage:
+        class: gp4-csi
+        size: '100'
+        type: persistent-claim
+    zookeeper:
+      metricsConfig:
+        type: jmxPrometheusExporter
+        valueFrom:
+          configMapKeyRef:
+            key: zookeeper-metrics-config.yaml
+            name: light-insecure-metrics-config
+      replicas: 1
+      storage:
+        class: gp4-csi
+        size: '50'
+        type: persistent-claim
+  adminUI: {}
+  restProducer: {}
+  apicurioRegistry: {}
+  adminApi: {}
+  collector: {}
+  version: latest
+status:
+  observedGeneration: 1
+  customImages: false
+  routes:
+    ac-reg-external: >-
+      kafka-skw1-ibm-es-ac-reg-external-ocpui.apps.ocp.skw.dev.zone-echange-edf.fr
+    admapi-external: >-
+      kafka-skw1-ibm-es-admapi-external-ocpui.apps.ocp.skw.dev.zone-echange-edf.fr
+    recapi-external: >-
+      kafka-skw1-ibm-es-recapi-external-ocpui.apps.ocp.skw.dev.zone-echange-edf.fr
+    ui: kafka-skw1-ibm-es-ui-ocpui.apps.ocp.skw.dev.zone-echange-edf.fr
+  adminUiUrl: 'https://kafka-skw1-ibm-es-ui-ocpui.apps.ocp.skw.dev.zone-echange-edf.fr'
+  conditions:
+    - lastTransitionTime: '2023-05-31T07:57:10.202660727Z'
+      message: >-
+        Communication between Event Streams components is plain text. If
+        encrypted data is required, edit spec.security.internalTls to provide
+        value 'TLSv1.2'.
+      reason: EventStreamsNoTls
+      status: 'True'
+      type: Warning
+    - lastTransitionTime: '2023-05-31T07:57:10.202669725Z'
+      message: >-
+        No authorization is enabled for Kafka. Any verified user will have
+        permissions to access and perform actions against your Kafka brokers. If
+        Kafka authorization is required, edit
+        spec.strimziOverrides.kafka.authorization.type to provide value ‘runas’.
+      reason: KafkaUnauthorized
+      status: 'True'
+      type: Warning
+    - lastTransitionTime: '2023-05-31T07:57:10.202671955Z'
+      message: >-
+        No authentication is enabled for Kafka listeners. Any client can connect
+        to your Kafka brokers. However, you will have reduced access to Event
+        Streams and Cloud Pak for Integration features, including the use of the
+        UI, and monitoring and metrics capabilities. To access all features,
+        enable authentication for Kafka by setting the authentication type in
+        one or more of the kafka listeners declared in
+        spec.strimziOverrides.kafka.listeners
+      reason: KafkaUnauthenticated
+      status: 'True'
+      type: Warning
+    - lastTransitionTime: '2023-05-31T07:57:49.162718173Z'
+      message: >-
+        default.replication.factor option is not configured. It defaults to 1
+        which does not guarantee reliability and availability. You should
+        configure this option in .spec.strimziOverrides.kafka.config.
+      reason: KafkaDefaultReplicationFactor
+      status: 'True'
+      type: Warning
+    - lastTransitionTime: '2023-05-31T07:57:49.162725814Z'
+      message: >-
+        min.insync.replicas option is not configured. It defaults to 1 which
+        does not guarantee reliability and availability. You should configure
+        this option in .spec.strimziOverrides.kafka.config.
+      reason: KafkaMinInsyncReplicas
+      status: 'True'
+      type: Warning
+    - lastTransitionTime: '2023-05-31T07:57:49.162729302Z'
+      message: >-
+        Support for StatefulSets will be removed in Strimzi 0.35. You should
+        consider migrating to StrimziPodSets.
+      reason: StatefulSetRemoval
+      status: 'True'
+      type: Warning
+    - lastTransitionTime: '2023-05-31T07:59:28.587564312Z'
+      status: 'True'
+      type: Ready
+  kafkaListeners:
+    - addresses:
+        - host: kafka-skw1-kafka-bootstrap.ocpui.svc
+          port: 9092
+      bootstrapServers: 'kafka-skw1-kafka-bootstrap.ocpui.svc:9092'
+      name: plain
+      type: plain
+  phase: Ready
+  versions:
+    available:
+      channels:
+        - name: latest
+      versions: []
+    reconciled: 11.1.6
+  endpoints:
+    - name: restproducer
+      type: API
+      uri: >-
+        https://kafka-skw1-ibm-es-recapi-external-ocpui.apps.ocp.skw.dev.zone-echange-edf.fr
+    - name: admin
+      type: API
+      uri: >-
+        https://kafka-skw1-ibm-es-admapi-external-ocpui.apps.ocp.skw.dev.zone-echange-edf.fr
+    - name: apicurioregistry
+      type: API
+      uri: >-
+        https://kafka-skw1-ibm-es-ac-reg-external-ocpui.apps.ocp.skw.dev.zone-echange-edf.fr
+    - name: ui
+      type: UI
+      uri: 'https://kafka-skw1-ibm-es-ui-ocpui.apps.ocp.skw.dev.zone-echange-edf.fr'
